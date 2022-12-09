@@ -32,9 +32,26 @@ function onClickGalleryElement(event) {
   }
 
   const originalSizeLink = event.target.dataset.source;
-  const originalSizeImg = basicLightbox.create(`
+  const originalSizeImg = basicLightbox.create(
+    `
       <img src="${originalSizeLink}">
-  `);
+  `,
+    {
+      onShow: (originalSizeImg) => {
+        document.addEventListener("keydown", onEscapeKeyDown);
+      },
+      onClose: (originalSizeImg) => {
+        document.removeEventListener("keydown", onEscapeKeyDown);
+      },
+    }
+  );
 
   originalSizeImg.show();
+
+  function onEscapeKeyDown(event) {
+    if (event.code !== "Escape") {
+      return;
+    }
+    originalSizeImg.close();
+  }
 }

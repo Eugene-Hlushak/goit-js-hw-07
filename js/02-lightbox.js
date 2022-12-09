@@ -7,7 +7,7 @@ function createGalleryMarkup(galleryItems) {
   return galleryItems
     .map(({ preview, original, description }) => {
       return `<a class="gallery__item" href="${original}">
-  <img class="gallery__image" src="${preview}" alt="${description}" />
+  <img class="gallery__image" src="${preview}" title="${description}" />
 </a>`;
     })
     .join("");
@@ -17,10 +17,8 @@ const galleryMarkup = createGalleryMarkup(galleryItems);
 galleryList.insertAdjacentHTML("beforeend", galleryMarkup);
 
 galleryList.addEventListener("click", onClickGalleryElement);
+let lightbox = new SimpleLightbox(".gallery a");
 
 function onClickGalleryElement(event) {
   event.preventDefault();
-  console.log(event.target.nodeName);
-
-  let lightbox = new SimpleLightbox(".gallery a");
 }
